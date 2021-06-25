@@ -75,7 +75,7 @@ public class Battleship extends JFrame implements ActionListener {
     private void iniciarComponentes() {
         colocarPanel();
         menuInicio();
-        //menuRanking();
+        //menuModificarDatos();
     }
 
     private void colocarPanel() {
@@ -311,8 +311,8 @@ public class Battleship extends JFrame implements ActionListener {
         errorEspacios2 = new JLabel("", SwingConstants.CENTER);
         errorEspacios1.setBounds(160, 670, 600, 100);
         errorEspacios2.setBounds(160, 700, 600, 100);
-        errorEspacios1.setFont(fuente.deriveFont(25f));
-        errorEspacios2.setFont(fuente.deriveFont(25f));
+        errorEspacios1.setFont(fuente.deriveFont(30f));
+        errorEspacios2.setFont(fuente.deriveFont(30f));
         errorEspacios1.setForeground(Color.RED);
         errorEspacios2.setForeground(Color.RED);
         panel.add(errorEspacios1);
@@ -636,6 +636,19 @@ public class Battleship extends JFrame implements ActionListener {
         botonVolver.setFont(fuente.deriveFont(30f));
         botonVolver.setBounds(230, 625, 450, 80);
         panel.add(botonVolver);
+        
+        errorEspacios1 = new JLabel("", SwingConstants.CENTER);
+        errorEspacios2 = new JLabel("", SwingConstants.CENTER);
+        errorEspacios1.setBounds(160, 725, 600, 100);
+        errorEspacios2.setBounds(160, 765, 600, 100);
+        errorEspacios1.setFont(fuente.deriveFont(30f));
+        errorEspacios2.setFont(fuente.deriveFont(30f));
+        errorEspacios1.setForeground(Color.RED);
+        errorEspacios2.setForeground(Color.RED);
+        panel.add(errorEspacios1);
+        panel.add(errorEspacios2);
+        errorEspacios1.setVisible(false);
+        errorEspacios2.setVisible(false);
 
         cuadradoMI = new JLabel();
         cuadradoMI.setBounds(200, 260, 520, 480);
@@ -648,6 +661,13 @@ public class Battleship extends JFrame implements ActionListener {
         cuadradoMI2.setOpaque(true);
         cuadradoMI2.setBackground(new Color(0, 0, 0, 170));
         panel.add(cuadradoMI2);
+        
+        cuadradoMI2 = new JLabel();
+        cuadradoMI2.setBounds(200, 750, 520, 90);
+        cuadradoMI2.setOpaque(true);
+        cuadradoMI2.setBackground(new Color(0, 0, 0, 170));
+        panel.add(cuadradoMI2);
+        cuadradoMI2.setVisible(false);
 
         ImageIcon fondo1 = new ImageIcon("fondo2.jpg");
         etiquetaFondo1 = new JLabel();
@@ -1083,10 +1103,6 @@ public class Battleship extends JFrame implements ActionListener {
                 boolean usuarioUsado = false;
                 if (!(ingresarUsuario.getText().equals("")) && !(ingresarContra.getText().equals(""))) {
                     if (ingresarUsuario.getText().contains(" ") || ingresarContra.getText().contains(" ")) {
-                        panel.setVisible(false);
-                        panel.removeAll();
-                        creacionDeUsuario();
-
                         errorEspacios1.setText("El nombre y la contraseña");
                         errorEspacios2.setText("no pueden contener espacios");
                         errorEspacios1.setVisible(true);
@@ -1105,13 +1121,10 @@ public class Battleship extends JFrame implements ActionListener {
                             jugadores.add(new Player(ingresarUsuario.getText(), ingresarContra.getText()));
                             //System.out.println(jugadores[controlJugador].nombreUsuario+"\n"+jugadores[controlJugador].contraseña);
                             //System.out.println(jugadores.get(0).nombreUsuario);
-                             panel.setVisible(false);
+                            panel.setVisible(false);
                             panel.removeAll();
                             menuInicio();
                         }else{
-                            panel.setVisible(false);
-                            panel.removeAll();
-                            creacionDeUsuario();
                             
                             errorEspacios1.setText("El nombre de usuario");
                             errorEspacios2.setText("ya está en uso");
@@ -1154,10 +1167,6 @@ public class Battleship extends JFrame implements ActionListener {
         ActionListener tocarBotonEliminarCuenta = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                panel.setVisible(false);
-                panel.removeAll();
-                menuPerfil();
-
                 etiquetaConfirmar.setVisible(true);
                 botonSi.setVisible(true);
                 botonNo.setVisible(true);
@@ -1238,7 +1247,22 @@ public class Battleship extends JFrame implements ActionListener {
                         }
                         if (verificarNombre == 0) {
                             jugadores.get(idIniciado).setNombreUsuario(ingresarUsuario.getText());
+                            panel.setVisible(false);
+                            panel.removeAll();
+                            menuPerfil();
+                        }else{
+                            errorEspacios1.setText("El nombre de usuario");
+                            errorEspacios2.setText("ya está en uso.");
+                            errorEspacios1.setVisible(true);
+                            errorEspacios2.setVisible(true);
+                            cuadradoMI2.setVisible(true);
                         }
+                    }else{
+                        errorEspacios1.setText("El nombre y la contraseña");
+                        errorEspacios2.setText("no pueden contener espacios");
+                        errorEspacios1.setVisible(true);
+                        errorEspacios2.setVisible(true);
+                        cuadradoMI2.setVisible(true);
                     }
                 }
             }
@@ -1250,6 +1274,15 @@ public class Battleship extends JFrame implements ActionListener {
                 if (!(ingresarContra.getText().equals(""))) {
                     if (!(ingresarContra.getText().contains(" "))) {
                         jugadores.get(idIniciado).setContraseña(ingresarContra.getText());
+                        panel.setVisible(false);
+                        panel.removeAll();
+                        menuPerfil();
+                    }else{
+                        errorEspacios1.setText("El nombre y la contraseña");
+                        errorEspacios2.setText("no pueden contener espacios");
+                        errorEspacios1.setVisible(true);
+                        errorEspacios2.setVisible(true);
+                        cuadradoMI2.setVisible(true);
                     }
                 }
             }
