@@ -5,6 +5,8 @@
  */
 package progra1proyecto2;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Dell
@@ -14,8 +16,10 @@ public class Casillas {
     private int barco;
     private int vida;
     private boolean movido;
+    private ImageIcon imagenBarco;
 
     public Casillas(int barco, boolean reposicion) {
+        
         
         movido = false;
         this.barco = barco;
@@ -24,15 +28,19 @@ public class Casillas {
                 case 1:
                 case 5:
                     vida = 2;
+                    imagenBarco = new ImageIcon("destructor.png");
                     break;
                 case 2:
                     vida = 3;
+                    imagenBarco = new ImageIcon("submarino.png");
                     break;
                 case 3:
                     vida = 4;
+                    imagenBarco = new ImageIcon("acorazado.png");
                     break;
                 case 4:
                     vida = 5;
+                    imagenBarco = new ImageIcon("portaaviones.png");
                     break;
             }
             
@@ -70,7 +78,11 @@ public class Casillas {
         return barco;
 
     }
-
+    
+    public ImageIcon getImagenBarco(){
+        return imagenBarco;
+    }
+    
     public void reiniciar() {
 
         barco = 0;
